@@ -8,6 +8,7 @@ import { type Task } from "../_constants/schema";
 export const columns: Array<ColumnDef<Task>> = [
     {
         accessorKey: "id",
+        enableResizing: true,
         header: ({ column }) => <span>Task</span>,
         cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
     },
