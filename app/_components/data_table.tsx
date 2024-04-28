@@ -59,7 +59,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         columnResizeMode: 'onChange',
         defaultColumn: {
             size: 50,
-            minSize: 300,
+            minSize: 100,
             maxSize: 500,
         },
     });
@@ -85,8 +85,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header, index) => (
                                     <TableHead key={header.id} colSpan={header.colSpan} style={{
-                                        position: index < 3 ? 'sticky' : undefined,
-                                        left: index === 0 ? 0 : index === 1 ? '50px' : index === 2 ? '100px' : undefined,
+                                        position: index < 2 ? 'sticky' : undefined,
+                                        left: index === 0 ? 0 : index === 1 ? '50px' : undefined,
                                         zIndex: 1,
                                         background: '#fff',
                                         width: `calc(var(--header-${header.id}-size) * 1px)`,
@@ -118,8 +118,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                                     {row.getVisibleCells().map((cell, index) => (
                                         <TableCell key={cell.id} style={{
                                             background: '#fff',
-                                            position: index < 3 ? 'sticky' : undefined,
-                                            left: index === 0 ? 0 : index === 1 ? '50px' : index === 2 ? '100px' : undefined,
+                                            position: index < 2 ? 'sticky' : undefined,
+                                            left: index === 0 ? 0 : index === 1 ? '50px' : undefined,
                                         }}>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
