@@ -30,7 +30,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     const enhancedColumns = [
         {
             id: 'select',
-            accessorKey: 'select', // Not used just for identification
+            accessorKey: 'select',
             header: () => 'Select',
             cell: ({ row }: { row: Row<TData> }) => (
                 <Checkbox
@@ -38,12 +38,13 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                     onCheckedChange={() => setSelectedRow(row.id === selectedRow ? null : row.id)}
                 />
             ),
-            enableResizing: false,
-            sticky: 'left', // Applying sticky directly in CSS
+            size: 20,
+            enableResizing: true,
+            sticky: 'left',
         },
         ...columns.map(column => ({
             ...column,
-            enableResizing: true, // Enable resizing for all columns
+            enableResizing: true,
         })),
     ];
 
@@ -55,7 +56,12 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         state: {
             rowSelection: selectedRow ? { [selectedRow]: true } : {},
         },
-        columnResizeMode: 'onChange', // Resizing mode
+        columnResizeMode: 'onChange',
+        defaultColumn: {
+            size: 50,
+            minSize: 300,
+            maxSize: 500,
+        },
     });
 
     const columnSizeVars = useMemo(() => {
@@ -84,7 +90,6 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                                         zIndex: 1,
                                         background: '#fff',
                                         width: `calc(var(--header-${header.id}-size) * 1px)`,
-
                                     }}>
                                         {header.isPlaceholder
                                             ? null
@@ -93,7 +98,6 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                                                 header.getContext(),
                                             )}
                                         <div
-                                            onDoubleClick={() => header.column.resetSize()}
                                             onMouseDown={header.getResizeHandler()}
                                             onTouchStart={header.getResizeHandler()}
                                             className={`absolute right-0 top-0 bottom-0 w-1 z-10 hover:bg-gray-500 text-red-500 cursor-col-resize ${header.column.getIsResizing() ? 'isResizing' : ''
